@@ -10,7 +10,7 @@ function GameObject.new(args) -- constructor
 	local self = {}
 	setmetatable(self, GameObject)
 	self.components = {}
-	self.components['physics'] = PhysicsComponent.new(PhysicsComponent.SHAPE_TYPES.C, x, y, false, {}) -- for now, all game objects are dynamic
+	self.components['physics'] = PhysicsComponent.new(PhysicsComponent.SHAPE_TYPES.C, args.x, args.y, false, {r=100}) -- for now, all game objects are dynamic
 	self.components['display'] = DisplayComponent.new()
 	return self
 end
