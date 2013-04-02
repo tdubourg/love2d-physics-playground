@@ -8,8 +8,13 @@ PhysicsComponent['world'] = nil
 
 PhysicsComponent.__index = PhysicsComponent
 
-function PhysicsComponent.init_world()
-	
+PHY_METER_RATIO = 64
+GRAVITY = 9.81
+
+function PhysicsComponent.init()
+	love.physics.setMeter(PHY_METER_RATIO) --the height of a meter our worlds will be 64px
+	world = love.physics.newWorld(0, GRAVITY*PHY_METER_RATIO, true) --create a world for the bodies to exist in with horizontal gravity of 0 and vertical gravity of 9.81
+	world:setCallbacks(beginContact, endContact, preSolve, postSolve)	
 end
 
 function PhysicsComponent.new(shape_type, x, y, isStatic, options)
@@ -46,5 +51,7 @@ function PhysicsComponent.new(shape_type, x, y, isStatic, options)
 	return self
 end
 
-function PhysicsComponent:draw_hitbow()
-	if self:shape_type
+function PhysicsComponent:draw_hitbox()
+	if self:shape_type == 
+	end
+end

@@ -9,11 +9,15 @@ GameObject.__index = GameObject
 function GameObject.new(args) -- constructor
 	local self = {}
 	setmetatable(self, GameObject)
-	self.pc = PhysicsComponent.new(PhysicsComponent.SHAPE_TYPES.C, x, y, false, {}) -- for now, all game objects are dynamic
-	self.disp = DisplayComponent.new()
+	self.components = {}
+	self.components['physics'] = PhysicsComponent.new(PhysicsComponent.SHAPE_TYPES.C, x, y, false, {}) -- for now, all game objects are dynamic
+	self.components['display'] = DisplayComponent.new()
 	return self
 end
 
-function GameObject:my_method()
-	
+-- Update the game object by broadcasting to all of its components
+function GameObject:update(dt, args)
+	for k,comp in pairs(self.components) do
+		comp:update(dt, args)
+	end
 end
