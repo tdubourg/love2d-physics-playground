@@ -10,11 +10,13 @@ CircleHitbox.__index = CircleHitbox
 -- }
 function CircleHitbox.new(options) -- constructor
 	local self = {}
+	setmetatable(self, CircleHitbox)
 	self.shape = love.physics.newCircleShape(options.r)
 	self.height = options.r
 	self.width = options.r
 	self.x = options.x + options.r
 	self.y = options.y - options.r
+	return self
 end
 
 function CircleHitbox:my_method()

@@ -1,8 +1,9 @@
 require('strict') -- Very important, will avoid many issues
+require('circle_hitbox')
 
 PhysicsComponent = {}
 
-PhysicsComponent['ShapeType'] = { C=1, R=3 }
+PhysicsComponent['SHAPE_TYPES'] = { C=1, R=3 }
 PhysicsComponent['world'] = nil
 
 PhysicsComponent.__index = PhysicsComponent
