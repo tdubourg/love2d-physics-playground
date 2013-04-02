@@ -1,5 +1,15 @@
 require('debug')
 
+--[[ 
+Once for all, about Box2D coordinates's system : See comments at the top of rectangle_hitbox.lua
+
+Another IMPORTANT TRICK here: Love2d's love.graphics.circle() draws from the CENTER.
+So after all those positie/negative shifts to get (x,y)=(left, top), relatively to physics
+ou then have to do ANOTHER addition when drawing the circle.
+
+
+]]
+
 CircleHitbox = {}
 
 CircleHitbox.__index = CircleHitbox
@@ -20,7 +30,7 @@ function CircleHitbox.new(options) -- constructor
 	self.width = options.r
 	self.radius = options.r
 	self.x = options.x + options.r
-	self.y = options.y - options.r
+	self.y = options.y + options.r
 	return self
 end
 
@@ -28,7 +38,8 @@ function CircleHitbox:update(dt, args)
 	if DEBUG_MODE then
 		print "CircleHitbox:update()"
 	end
-	self.x, self.y = self.body:getWorldCenter()
+	self.x, self.y = self.body:getWorldCenter() -- get the updated data from the body (as this is the body who's moved by the physics engine)
+	self.x, self.y = self.x - self.radius, self.y - self.radius -- translates those coordinates to get the ones of the shape, which are x=LEFT and y=TOP instead of center_x and center_y
 end
 
 -- Purely for debugging purposes, will draw the hitbox on the main canvas
@@ -38,6 +49,6 @@ function CircleHitbox:draw()
 	end
 	local r, g, b, a = love.graphics.getColor()
 	love.graphics.setColor(255, 0, 0)
-	love.graphics.circle("fill", self.x, self.y, self.radius, CircleHitbox.SEGMENTS)
+	love.graphics.circle("fill", self.x + self.radius, self.y + self.radius, self.radius, CircleHitbox.SEGMENTS) -- circles are drown from their center, but our coords are TOP, LEFT, so we need to shift them
 	love.graphics.setColor(r, g, b, a)
 end
