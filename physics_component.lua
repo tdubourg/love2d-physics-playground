@@ -1,5 +1,6 @@
 require('debug')
 require('circle_hitbox')
+require('rectangle_hitbox')
 
 PhysicsComponent = {}
 
@@ -25,12 +26,7 @@ function PhysicsComponent.new(shape_type, x, y, isStatic, options)
 	if shape_type == PhysicsComponent.SHAPE_TYPES.C then
 		self.hitbox = CircleHitbox.new({x=x, y=y, r=options.r})
 	elseif shape_type == PhysicsComponent.SHAPE_TYPES.R then
-		error( "NOT IMPLEMENTED YET")
-		-- self.shape = love.physics.newRectangleShape(options.width, options.height)
-		-- height = options.height
-		-- width = options.width
-		-- x = (width+x*2)/2
-		-- y = y+height/2
+		self.hitbox = RectangleHitbox.new({x=x, y=y, height=options.height, width=options.width})
 	else -- If not in the constants. return nil together with an error
 		error( "ERROR, wrong shape_type passed to PhysicsComponent")
 		print ("Value passed: " .. shape_type)
