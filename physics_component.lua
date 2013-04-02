@@ -25,30 +25,28 @@ function PhysicsComponent.new(shape_type, x, y, isStatic, options)
 	if shape_type == PhysicsComponent.SHAPE_TYPES.C then
 		self.hitbox = CircleHitbox.new({x=x, y=y, r=options.r})
 	elseif shape_type == PhysicsComponent.SHAPE_TYPES.R then
-		print "NOT IMPLEMENTED YET"
-		return nil
+		error( "NOT IMPLEMENTED YET")
 		-- self.shape = love.physics.newRectangleShape(options.width, options.height)
 		-- height = options.height
 		-- width = options.width
 		-- x = (width+x*2)/2
 		-- y = y+height/2
 	else -- If not in the constants. return nil together with an error
-		print "ERROR, wrong shape_type passed to PhysicsComponent"
+		error( "ERROR, wrong shape_type passed to PhysicsComponent")
 		print ("Value passed: " .. shape_type)
-		return nil
 	end
 
+	self.hitbox.body = nil
 	if isStatic == true then
-		self.body = love.physics.newBody(PhysicsComponent.world, self.hitbox.x, self.hitbox.y)
+		self.hitbox.body = love.physics.newBody(PhysicsComponent.world, self.hitbox.x, self.hitbox.y)
 	else
-		self.body = love.physics.newBody(PhysicsComponent.world, self.hitbox.x, self.hitbox.y, "dynamic")
+		self.hitbox.body = love.physics.newBody(PhysicsComponent.world, self.hitbox.x, self.hitbox.y, "dynamic")
 	end
 
-	self.fixture = love.physics.newFixture(self.body, self.hitbox.shape, 1) -- Attach fixture to body and give it a density of 1 (rigid body)
-	self.body:setFixedRotation(true)
-	self.fixture:setFriction(0.0)
-	self.body:setInertia(0.0)
-
+	self.hitbox.fixture = love.physics.newFixture(self.hitbox.body, self.hitbox.shape, 1) -- Attach fixture to body and give it a density of 1 (rigid body)
+	self.hitbox.body:setFixedRotation(true)
+	self.hitbox.fixture:setFriction(0.0)
+	self.hitbox.body:setInertia(0.0)
 	return self
 end
 
@@ -57,6 +55,7 @@ function PhysicsComponent:update(dt, args)
 	if DEBUG_MODE then
 		print "PhysicsComponent:update()"
 	end
+	self.hitbox:update(dt, args)
 end
 
 -- only for debugging purposes

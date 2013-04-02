@@ -8,6 +8,7 @@ function love.load()
 end
 
 function love.update(dt)
+	PhysicsComponent.world:update(dt) --this puts the world into motion
 	for k,v in pairs(objects) do
 		v:update(dt, {})
 	end

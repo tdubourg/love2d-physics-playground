@@ -28,7 +28,7 @@ function CircleHitbox:update(dt, args)
 	if DEBUG_MODE then
 		print "CircleHitbox:update()"
 	end
-	self.x, self.y = self.shape.getBody().getWorldCenter()
+	self.x, self.y = self.body:getWorldCenter()
 end
 
 -- Purely for debugging purposes, will draw the hitbox on the main canvas
