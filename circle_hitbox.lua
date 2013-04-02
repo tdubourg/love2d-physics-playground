@@ -1,3 +1,5 @@
+require('debug')
+
 CircleHitbox = {}
 
 CircleHitbox.__index = CircleHitbox
@@ -23,10 +25,19 @@ function CircleHitbox.new(options) -- constructor
 end
 
 function CircleHitbox:update(dt, args)
+	if DEBUG_MODE then
+		print "CircleHitbox:update()"
+	end
 	self.x, self.y = self.shape.getBody().getWorldCenter()
 end
 
 -- Purely for debugging purposes, will draw the hitbox on the main canvas
-function CircleHitbox:draw(dt, args)
-	love.graphics.circle(mode, self.x, self.y, self.radius, CircleHitbox.SEGMENTS)
+function CircleHitbox:draw()
+	if DEBUG_MODE then
+		print "CircleHitbox:draw()"
+	end
+	local r, g, b, a = love.graphics.getColor()
+	love.graphics.setColor(255, 0, 0)
+	love.graphics.circle("fill", self.x, self.y, self.radius, CircleHitbox.SEGMENTS)
+	love.graphics.setColor(r, g, b, a)
 end

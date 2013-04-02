@@ -1,4 +1,4 @@
-require('strict')
+require('debug')
 require('physics_component')
 require('display_component')
 
@@ -17,6 +17,9 @@ end
 
 -- Update the game object by broadcasting to all of its components
 function GameObject:update(dt, args)
+	if DEBUG_MODE then
+		print "GameObject:update()"
+	end
 	for k,comp in pairs(self.components) do
 		comp:update(dt, args)
 	end

@@ -1,9 +1,4 @@
---[[ 
-Watch your Back - Nico, Théo, Fred, Piero, Valentin, Anis
-]]
-
-require('strict') -- JS strict mode emulation!
-require('debug')
+require('./debug')
 require('game_object')
 
 local objects = {}
@@ -36,8 +31,14 @@ end
 function love.draw()
 	-- Directly calling the display component of every game object (when they have one)
 	for k,v in pairs(objects) do
-		if v.components.display then
-			v.components.display:draw({})
+		if DEBUG_MODE then
+			print ("Drawing object" )
+			print_r (v)
+		end
+		for k,compo in pairs(v.components) do
+			if compo.draw then
+				compo:draw()
+			end
 		end
 	end
 end

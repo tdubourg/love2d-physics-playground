@@ -1,4 +1,4 @@
-require('strict') -- Very important, will avoid many issues
+require('debug')
 require('circle_hitbox')
 
 PhysicsComponent = {}
@@ -10,7 +10,7 @@ PhysicsComponent.__index = PhysicsComponent
 
 PHY_METER_RATIO = 64
 GRAVITY = 9.81
-SHOW_HITBOXES = false
+SHOW_HITBOXES = true
 
 function PhysicsComponent.init(world)
 	love.physics.setMeter(PHY_METER_RATIO) --the height of a meter our worlds will be 64px
@@ -54,11 +54,21 @@ end
 
 function PhysicsComponent:update(dt, args)
 	-- do some stuff here
-	if SHOW_HITBOXES then
-		self:draw_hitbox(dt, args)
+	if DEBUG_MODE then
+		print "PhysicsComponent:update()"
 	end
 end
 
-function PhysicsComponent:draw_hitbox(dt, args)
-	self.hitbox:draw(dt, args)
+-- only for debugging purposes
+function PhysicsComponent:draw()
+	if SHOW_HITBOXES then
+		self:draw_hitbox()
+	end
+end
+
+function PhysicsComponent:draw_hitbox()
+	if DEBUG_MODE then
+		print "PhysicsComponent:draw_hitbox()"
+	end
+	self.hitbox:draw()
 end

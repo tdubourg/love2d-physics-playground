@@ -1,4 +1,4 @@
-require('strict') -- Very important, will avoid many issues
+require('debug')
 
 DisplayComponent = {}
 DisplayComponent.__index = DisplayComponent
