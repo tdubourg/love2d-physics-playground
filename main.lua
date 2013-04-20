@@ -16,13 +16,13 @@ function love.load()
 end
 
 function addPhysicsAndDisplayToGameObject( obj, phy_obj, disp_obj )
-	obj.components['physics'] = phy_obj
-	obj.components['display'] = disp_obj
+	obj:add_component('physics', phy_obj)
+	-- obj:add_component('display', disp_obj)
 end
 
 function love.update(dt)
 	timer = timer + dt
-	if timer >= INTERVAL then -- only executes once per second (or more at once in case of lags (speedup after lags))
+	if timer >= INTERVAL then -- only executes once per INTERVAL (or more at once in case of lags (speedup after lags))
 		timer = timer - INTERVAL
 		PhysicsComponent.world:update(dt) --this puts the world into motion
 	end

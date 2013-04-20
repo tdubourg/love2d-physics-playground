@@ -46,16 +46,23 @@ function PhysicsComponent.new(shape_type, x, y, isStatic, options)
 	return self
 end
 
-function PhysicsComponent:update(dt, args)
+function PhysicsComponent:attach_to( game_object )
+	self.go = game_object
+end
+
+function PhysicsComponent:update(dt, game_object, args)
 	-- do some stuff here
 	if DEBUG_MODE then
 		print "PhysicsComponent:update()"
 	end
 	self.hitbox:update(dt, args)
+	-- Updating the game object's position
+	self.go.posx = self.hitbox.x
+	self.go.posy = self.hitbox.y
 end
 
 -- only for debugging purposes
-function PhysicsComponent:draw()
+function PhysicsComponent:draw(game_object, args)
 	if SHOW_HITBOXES then
 		self:draw_hitbox()
 	end

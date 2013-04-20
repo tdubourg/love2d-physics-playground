@@ -35,9 +35,7 @@ function CircleHitbox.new(options) -- constructor
 end
 
 function CircleHitbox:update(dt, args)
-	if DEBUG_MODE then
-		print "CircleHitbox:update()"
-	end
+	log("CircleHitbox:update()", LOGLEVEL_DBG)
 	self.x, self.y = self.body:getWorldCenter() -- get the updated data from the body (as this is the body who's moved by the physics engine)
 	self.x, self.y = self.x - self.radius, self.y - self.radius -- translates those coordinates to get the ones of the shape, which are x=LEFT and y=TOP instead of center_x and center_y
 end
