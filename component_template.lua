@@ -10,7 +10,7 @@ function ComponentTemplate.new(args)
     return self
 end
 
-function attach_to( game_object )
+function ComponentTemplate:attach_to( game_object )
 	-- ...
 end
 
