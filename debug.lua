@@ -3,6 +3,19 @@ require('strict')
 DEBUG_MODE = true
 global("DEBUG_MODE")
 
+LOGLEVEL_DBG = 4
+LOGLEVEL_ERR = 1
+global("LOGLEVEL_DBG")
+global("LOGLEVEL_ERR")
+
+
+CURRENT_LOGLEVEL = LOGLEVEL_DBG
+function log( str, log_level )
+	if CURRENT_LOGLEVEL >= LOGLEVEL_DBG then
+		print(str)
+	end
+end
+
 function print_r (t, indent, done)
 	done = done or {}
 	indent = indent or ''
