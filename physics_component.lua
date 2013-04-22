@@ -59,6 +59,8 @@ function PhysicsComponent:update(dt, game_object, args)
 	-- Updating the game object's position
 	self.go.posx = self.hitbox.x
 	self.go.posy = self.hitbox.y
+	self.go.centerx = self.hitbox.center_x
+	self.go.centery = self.hitbox.center_y
 end
 
 -- only for debugging purposes

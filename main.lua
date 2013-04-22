@@ -17,14 +17,14 @@ function love.load()
 	local RECT_HITBOX_WIDTH = SPRITE_W * 0.9
 	local RECT_HITBOX_HEIGHT = SPRITE_H * 0.9
 	physics_obj[0] = PhysicsComponent.new(PhysicsComponent.SHAPE_TYPES.R, 100, 0, false, {width=RECT_HITBOX_WIDTH, height=RECT_HITBOX_HEIGHT}) -- for now, all game objects are dynamic
-	local disp1 = DisplayComponent.new(SPRITES_DIR .. "star.jpeg")
+	local disp1 = DisplayComponent.new(SPRITES_DIR .. "star.jpeg", false) -- this one will not be drawn centered on the game object
 	addPhysicsAndDisplayToGameObject(objects[0], physics_obj[0], disp1)
 	
 	objects[1] = GameObject.new()
 	local CIRCLE_HITBOX_RADIUS = SPRITE_H * 0.9 / 2.0
 	physics_obj[1] = PhysicsComponent.new(PhysicsComponent.SHAPE_TYPES.C, 0, 0, false, {r=CIRCLE_HITBOX_RADIUS}) -- for now, all game objects are dynamic
 	local disp2 = DisplayComponent.new(SPRITES_DIR .. "star.jpeg")
-	addPhysicsAndDisplayToGameObject(objects[1], physics_obj[1], disp2)
+	addPhysicsAndDisplayToGameObject(objects[1], physics_obj[1], disp2) -- this one will not be centered on the game object
 end
 
 function addPhysicsAndDisplayToGameObject( obj, phy_obj, disp_obj )

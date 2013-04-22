@@ -11,6 +11,8 @@ function GameObject.new(args) -- constructor
 	setmetatable(self, GameObject)
 	self.posx = 0
 	self.posy = 0
+	self.centerx = 0
+	self.centery = 0
 	self.components = {}
 	return self
 end

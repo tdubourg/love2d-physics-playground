@@ -68,9 +68,12 @@ function RectangleHitbox.new(options) -- constructor
 	self.shape = love.physics.newRectangleShape(options.width, options.height)
 	self.height = options.height
 	self.width = options.width
-	-- the shape will anchor at the center of the body, so we need to move the body to our shape's center when creating it if we want to have the top left corner in (x, y)
+	-- the shape will anchor at the center of the body, so we need to move 
+	-- the body to our shape's center when creating it if we want to have
+	-- the top left corner in (x, y)
 	self.x = options.x + self.width/2
 	self.y = options.y + self.height/2
+	self.center_x, self.center_y = self.x, self.y
 	return self
 end
 
@@ -78,8 +81,8 @@ function RectangleHitbox:update(dt, args)
 	if DEBUG_MODE then
 		print "RectangleHitbox:update()"
 	end
-	self.x, self.y = self.body:getWorldCenter() -- get the updated data from the body (as this is the body who's moved by the physics engine)
-	self.x, self.y = self.x - self.width/2, self.y - self.height/2 -- translates those coordinates to get the ones of the shape, which are x=LEFT and y=TOP instead of center_x and center_y
+	self.center_x, self.center_y = self.body:getWorldCenter() -- get the updated data from the body (as this is the body who's moved by the physics engine)
+	self.x, self.y = self.center_x - self.width/2, self.center_y - self.height/2 -- translates those coordinates to get the ones of the shape, which are x=LEFT and y=TOP instead of center_x and center_y
 end
 
 -- Purely for debugging purposes, will draw the hitbox on the main canvas
