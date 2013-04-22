@@ -15,7 +15,7 @@ function DisplayComponent.new(sprite_path, draw_centered, offset)
         self.draw_centered = true
     else
         self.draw_centered = draw_centered
-        if nil != offset then
+        if nil ~= offset then
             self.offset_x = offset.x
             self.offset_y = offset.y
         end
