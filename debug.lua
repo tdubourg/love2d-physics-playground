@@ -1,6 +1,6 @@
 
 require('strict')
-DEBUG_MODE = true
+DEBUG_MODE = false
 global("DEBUG_MODE")
 
 LOGLEVEL_DBG = 4

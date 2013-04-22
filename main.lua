@@ -3,7 +3,7 @@ require('game_object')
 
 local objects, physics_obj = {}, {}
 local timer = 0
-local INTERVAL = 0.2
+local INTERVAL = 1.0/60.0
 
 SPRITES_DIR = "resources/sprites/"
 
@@ -17,6 +17,7 @@ function love.load()
 	local RECT_HITBOX_WIDTH = SPRITE_W * 0.9
 	local RECT_HITBOX_HEIGHT = SPRITE_H * 0.9
 	physics_obj[0] = PhysicsComponent.new(PhysicsComponent.SHAPE_TYPES.R, 100, 0, false, {width=RECT_HITBOX_WIDTH, height=RECT_HITBOX_HEIGHT}) -- for now, all game objects are dynamic
+	physics_obj[0]:set_speed(PhysicsComponent.SPEED_NORMAL, 0)
 	local disp1 = DisplayComponent.new(SPRITES_DIR .. "star.jpeg", false) -- this one will not be drawn centered on the game object
 	addPhysicsAndDisplayToGameObject(objects[0], physics_obj[0], disp1)
 	

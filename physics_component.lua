@@ -6,6 +6,9 @@ PhysicsComponent = {}
 
 PhysicsComponent['SHAPE_TYPES'] = { C=1, R=3 }
 PhysicsComponent['world'] = nil
+PhysicsComponent['SPEED_SLOW'] = 250
+PhysicsComponent['SPEED_NORMAL'] = 500
+PhysicsComponent['SPEED_FAST'] = 1000
 
 PhysicsComponent.__index = PhysicsComponent
 
@@ -68,6 +71,10 @@ function PhysicsComponent:draw(game_object, args)
 	if SHOW_HITBOXES then
 		self:draw_hitbox()
 	end
+end
+
+function PhysicsComponent:set_speed( speedx, speedy )
+	self.hitbox.body:setLinearVelocity(speedx, speedy)
 end
 
 function PhysicsComponent:draw_hitbox()
