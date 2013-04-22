@@ -1,3 +1,6 @@
+-- Out of CC BY license, courtesy of http://lua-users.org/wiki/DetectingUndefinedVariables
+
+
 --
 -- strict.lua
 -- checks uses of undeclared global variables

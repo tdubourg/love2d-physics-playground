@@ -1,3 +1,10 @@
+--------------- License --------------- 
+-- By tdubourg http://github.com/tdubourg
+-- This work in under the CC-BY v3 license
+-- The license can be found here http://creativecommons.org/licenses/by/3.0/legalcode
+-- In short: as long as you do not remove this disclaimer, do what you want with this
+---------------------------------------- 
+
 
 require('strict')
 DEBUG_MODE = false
@@ -16,6 +23,7 @@ function log( str, log_level )
 	end
 end
 
+---- Out of CC BY license ----
 function print_r (t, indent, done)
 	done = done or {}
 	indent = indent or ''
