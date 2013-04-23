@@ -20,6 +20,7 @@ function GameObject.new(args) -- constructor
 	self.posy = 0
 	self.centerx = 0
 	self.centery = 0
+	self.angle = 0
 	self.components = {}
 	return self
 end

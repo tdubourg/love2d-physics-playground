@@ -24,7 +24,9 @@ function love.load()
 	local RECT_HITBOX_WIDTH = SPRITE_W * 0.9
 	local RECT_HITBOX_HEIGHT = SPRITE_H * 0.9
 	physics_obj[0] = PhysicsComponent.new(PhysicsComponent.SHAPE_TYPES.R, 100, 0, false, {width=RECT_HITBOX_WIDTH, height=RECT_HITBOX_HEIGHT}) -- for now, all game objects are dynamic
-	physics_obj[0]:set_speed(PhysicsComponent.SPEED_NORMAL, -PhysicsComponent.SPEED_SLOW)
+	physics_obj[0]:set_speed(PhysicsComponent.SPEED_SLOW, -PhysicsComponent.SPEED_SLOW)
+	physics_obj[0]:unlock_rotation() -- Allows this physics object to rotate, rotation is disabled by default
+	physics_obj[0]:set_friction(0.1)
 	local disp1 = DisplayComponent.new(SPRITES_DIR .. "star.jpeg", false) -- this one will not be drawn centered on the game object
 	addPhysicsAndDisplayToGameObject(objects[0], physics_obj[0], disp1)
 	
@@ -33,6 +35,21 @@ function love.load()
 	physics_obj[1] = PhysicsComponent.new(PhysicsComponent.SHAPE_TYPES.C, 0, 0, false, {r=CIRCLE_HITBOX_RADIUS}) -- for now, all game objects are dynamic
 	local disp2 = DisplayComponent.new(SPRITES_DIR .. "star.jpeg")
 	addPhysicsAndDisplayToGameObject(objects[1], physics_obj[1], disp2) -- this one will not be centered on the game object
+
+	-- A ground
+	objects[2] = GameObject.new()
+	local gnd_phy = PhysicsComponent.new(PhysicsComponent.SHAPE_TYPES.R, 0, 510, true, {width=800, height=40})
+	objects[2]:add_component('physics', gnd_phy)
+	gnd_phy:set_friction(0.9)
+
+	-- Obstacles
+	objects[3] = GameObject.new()
+	local obs_phy = PhysicsComponent.new(PhysicsComponent.SHAPE_TYPES.R, 665, 410, true, {width=10, height=100})
+	objects[3]:add_component('physics', obs_phy)
+
+	objects[4] = GameObject.new()
+	local obs_phy2 = PhysicsComponent.new(PhysicsComponent.SHAPE_TYPES.R, 605, 380, false, {width=100, height=20})
+	objects[4]:add_component('physics', obs_phy2)
 end
 
 function addPhysicsAndDisplayToGameObject( obj, phy_obj, disp_obj )

@@ -80,6 +80,7 @@ function RectangleHitbox.new(options) -- constructor
 	-- the top left corner in (x, y)
 	self.x = options.x + self.width/2
 	self.y = options.y + self.height/2
+	self.angle = 0
 	self.center_x, self.center_y = self.x, self.y
 	return self
 end
@@ -90,6 +91,7 @@ function RectangleHitbox:update(dt, args)
 	end
 	self.center_x, self.center_y = self.body:getWorldCenter() -- get the updated data from the body (as this is the body who's moved by the physics engine)
 	self.x, self.y = self.center_x - self.width/2, self.center_y - self.height/2 -- translates those coordinates to get the ones of the shape, which are x=LEFT and y=TOP instead of center_x and center_y
+	self.angle = self.body:getAngle()
 end
 
 -- Purely for debugging purposes, will draw the hitbox on the main canvas
@@ -97,8 +99,14 @@ function RectangleHitbox:draw()
 	if DEBUG_MODE then
 		print "RectangleHitbox:draw()"
 	end
-	local r, g, b, a = love.graphics.getColor()
-	love.graphics.setColor(0, 255, 0)
-	love.graphics.rectangle("fill", self.x, self.y, self.width, self.height) -- rectangle are drawn from LEFT, TOP, phew!
-	love.graphics.setColor(r, g, b, a)
+	if nil == self.hitbox_canvas then
+		self.hitbox_canvas = love.graphics.newCanvas(self.width, self.height)
+		love.graphics.setCanvas(self.hitbox_canvas)
+		local r, g, b, a = love.graphics.getColor()
+		love.graphics.setColor(0, 255, 0)
+		love.graphics.rectangle("fill", 0, 0, self.width, self.height) -- rectangle are drawn from LEFT, TOP, phew!
+		love.graphics.setColor(r, g, b, a)
+		love.graphics.setCanvas()
+	end
+	love.graphics.draw(self.hitbox_canvas, self.x+self.width/2, self.y+self.height/2, self.angle, 1.0, 1.0, self.width/2, self.height/2)
 end

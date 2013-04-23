@@ -41,8 +41,8 @@ end
 
 function DisplayComponent:draw()
     if self.draw_centered then
-        love.graphics.draw(self.sprite, self.go.centerx - self.w / 2.0, self.go.centery - self.h / 2.0)
+        love.graphics.draw(self.sprite, self.go.centerx, self.go.centery, self.go.angle, 1.0, 1.0, self.w / 2.0, self.h / 2.0)
     else
-        love.graphics.draw(self.sprite, self.go.posx + self.offset_x, self.go.posy + self.offset_y)
+        love.graphics.draw(self.sprite, self.go.posx + self.offset_x + self.w / 2.0, self.go.posy + self.offset_y + self.h / 2.0, self.go.angle, 1.0, 1.0, self.w / 2.0, self.h / 2.0)
     end
 end

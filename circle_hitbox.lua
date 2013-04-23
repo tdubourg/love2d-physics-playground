@@ -36,6 +36,7 @@ function CircleHitbox.new(options) -- constructor
 	self.height = options.r
 	self.width = options.r
 	self.radius = options.r
+	self.angle = 0
 	self.x = options.x + options.r
 	self.y = options.y + options.r
 	return self
@@ -45,6 +46,7 @@ function CircleHitbox:update(dt, args)
 	log("CircleHitbox:update()", LOGLEVEL_DBG)
 	self.center_x, self.center_y = self.body:getWorldCenter() -- get the updated data from the body (as this is the body who's moved by the physics engine)
 	self.x, self.y = self.center_x - self.radius, self.center_y - self.radius -- translates those coordinates to get the ones of the shape, which are x=LEFT and y=TOP instead of center_x and center_y
+	self.angle = self.body:getAngle()
 end
 
 -- Purely for debugging purposes, will draw the hitbox on the main canvas

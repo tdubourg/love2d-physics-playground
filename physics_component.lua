@@ -50,14 +50,32 @@ function PhysicsComponent.new(shape_type, x, y, isStatic, options)
 	end
 
 	self.hitbox.fixture = love.physics.newFixture(self.hitbox.body, self.hitbox.shape, 1) -- Attach fixture to body and give it a density of 1 (rigid body)
-	self.hitbox.body:setFixedRotation(true)
-	self.hitbox.fixture:setFriction(0.0)
-	self.hitbox.body:setInertia(0.0)
+	self:lock_rotation()
+	self:disable_friction()
+	-- self.hitbox.body:setInertia(0.0) -- this call does pretty weird/odd thing, never use it again before a long reading of Box2d doc
+	-- self.hitbox.body:setAngularVelocity(0.0)
+	self.hitbox.fixture:setRestitution(0.0)
 	return self
 end
 
 function PhysicsComponent:attach_to( game_object )
 	self.go = game_object
+end
+
+function PhysicsComponent:unlock_rotation()
+	self.hitbox.body:setFixedRotation(false)
+end
+
+function PhysicsComponent:lock_rotation()
+	self.hitbox.body:setFixedRotation(true)
+end
+
+function PhysicsComponent:set_friction(coeff)
+	self.hitbox.fixture:setFriction(coeff)
+end
+
+function PhysicsComponent:disable_friction(coeff)
+	self:set_friction(0.0)
 end
 
 function PhysicsComponent:update(dt, game_object, args)
@@ -71,6 +89,7 @@ function PhysicsComponent:update(dt, game_object, args)
 	self.go.posy = self.hitbox.y
 	self.go.centerx = self.hitbox.center_x
 	self.go.centery = self.hitbox.center_y
+	self.go.angle = self.hitbox.angle
 end
 
 -- only for debugging purposes
